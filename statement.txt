@@ -1,0 +1,14 @@
+DROP VIEW v_cso_two;
+
+CREATE VIEW v_cso_two (employee_id, employee_code, employee_name, employee_type, begin_date, project_name, bank_account_number, bpjs_tk_number, bpjs_kes_number, payment_id)
+AS
+SELECT cso_two.id, cso_two.employee_code, cso_two.employee_name, cso_two.employee_type, cso_two.begin_date, project.project_name, payment.bank_account_number, bpjs_tenaker.bpjs_tk_number, bpjs_kes.bpjs_kes_number, payment_id
+FROM cso_two
+LEFT JOIN project
+on project.id = cso_two.project_id
+LEFT JOIN payment
+on cso_two.id = payment.employee_id
+LEFT JOIN bpjs_tenaker
+on cso_two.id = bpjs_tenaker.employee_id
+LEFT JOIN bpjs_kes
+on cso_two.id = bpjs_kes.employee_id
